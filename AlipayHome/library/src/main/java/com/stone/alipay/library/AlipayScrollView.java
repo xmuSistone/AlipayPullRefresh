@@ -66,7 +66,7 @@ public class AlipayScrollView extends ScrollView {
         }
 
         // 2. 松手时的动画
-        SpringConfig springConfig = SpringConfig.fromOrigamiTensionAndFriction(1, 6);
+        SpringConfig springConfig = SpringConfig.fromOrigamiTensionAndFriction(3, 2);
         SpringSystem mSpringSystem = SpringSystem.create();
         spring = mSpringSystem.createSpring().setSpringConfig(springConfig);
         spring.setOvershootClampingEnabled(true);
