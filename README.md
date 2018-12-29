@@ -5,4 +5,4 @@ Alipay Pull Refresh
 
 ### 截图
 ![PREVIEW](capture1.gif)
-![PREVIEW](capture3.gif)
+![PREVIEW](capture2.gif)
