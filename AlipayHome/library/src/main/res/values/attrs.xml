@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="progress">
+        <attr name="color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="alipay">
+        <attr name="progressHeight" format="dimension" />
+        <attr name="progressCenterOffset" format="dimension" />
+        <attr name="progressColor" format="color" />
+        <attr name="topLayoutHeight" format="dimension" />
+    </declare-styleable>
+
+
+</resources>

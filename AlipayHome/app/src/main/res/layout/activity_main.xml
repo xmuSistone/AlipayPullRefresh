@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:alipay="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/home_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/statusBarColor" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/statusBarColor">
+
+        <RelativeLayout
+            android:id="@+id/home_toolbar_back"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/top_right2"
+                android:background="@drawable/white_corner">
+
+                <ImageView
+                    android:id="@+id/top_icon1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:padding="2dp"
+                    android:src="@drawable/search" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/top_icon2"
+                    android:layout_toRightOf="@+id/top_icon1"
+                    android:background="@color/transparent"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:hint="公积金查提"
+                    android:textColorHint="@color/gray"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/top_icon2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/voice" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/top_right1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:padding="7dp"
+                android:src="@drawable/add" />
+
+            <ImageView
+                android:id="@+id/top_right2"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@id/top_right1"
+                android:padding="6dp"
+                android:src="@drawable/head_default" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/home_toolbar_front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@color/statusBarColor"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:id="@+id/toolbar_icon1"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/scan" />
+
+            <ImageView
+                android:id="@+id/toolbar_icon2"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/toolbar_icon1"
+                android:src="@drawable/pay" />
+
+            <ImageView
+                android:id="@+id/toolbar_icon3"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/toolbar_icon2"
+                android:src="@drawable/receive_money" />
+
+            <ImageView
+                android:id="@+id/toolbar_icon4"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/toolbar_icon3"
+                android:padding="2dp"
+                android:src="@drawable/search_white" />
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:padding="3dp"
+                android:src="@drawable/add" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <com.stone.alipay.library.AlipayContainerLayout
+        android:id="@+id/home_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        alipay:progressColor="@color/statusBarColor"
+        alipay:progressCenterOffset="3dp"
+        alipay:progressHeight="@dimen/alipay_progress_height" />
+
+</LinearLayout>

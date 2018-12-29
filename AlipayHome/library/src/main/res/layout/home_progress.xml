@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom|center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progress"
+        android:layout_gravity="center_horizontal"
+        android:text="松开刷新"
+        android:textColor="#888"
+        android:textSize="12sp" />
+
+    <FrameLayout
+        android:id="@+id/progress_container"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <com.stone.alipay.library.ProgressImageView
+            android:id="@+id/progress_imageview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_shadow" />
+
+    </FrameLayout>
+
+</LinearLayout>
