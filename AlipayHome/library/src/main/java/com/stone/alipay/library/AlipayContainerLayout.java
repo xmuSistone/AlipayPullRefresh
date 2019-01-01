@@ -80,6 +80,10 @@ public class AlipayContainerLayout extends FrameLayout {
                 if (distanceX > distanceY && distanceX > mTouchSlop) {
                     // 水平滑动，由子View内部去消费
                     this.mode = Mode.HORIZONTAL;
+                    if (touchingView == topLayout) {
+                        scrollView.updateProcessY(ev.getRawY());
+                        return true;
+                    }
                 } else if (distanceY > distanceX && distanceY > mTouchSlop) {
                     // 垂直滑动
                     this.mode = Mode.VERTICAL;
@@ -127,13 +131,8 @@ public class AlipayContainerLayout extends FrameLayout {
             }
         }
 
-        if (mode == Mode.HORIZONTAL) {
-            // 水平滑动，子View不消费，则自己同样不消费，交给上层View
-            return false;
-        } else if (mode == Mode.VERTICAL) {
-            // 垂直滑动了，自己把它消费掉，同时Touch事件转发给scrollView
-            scrollView.onTouchEvent(event);
-        }
+        // 自己把它消费掉，同时Touch事件转发给scrollView
+        scrollView.onTouchEvent(event);
         return true;
     }
 
