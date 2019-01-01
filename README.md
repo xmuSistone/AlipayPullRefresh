@@ -3,8 +3,8 @@
 真要细细琢磨起来，这样的下拉刷新效果，确实挺难搞的。在页面中的任何一处都能上下拖动，相当考验细心和耐心。
 
 ### 原理说明
-或许很多人都想到了CoordinateLayout，诚然，CoordinateLayout是距离这种下拉刷新效果最近的官方控件。但是，有一些体验上的问题，却是CoordinateLayout也无能为力的。比如说：在topLayout按下触摸，向下拖动时，怎么把loading动画慢慢显示出来? 或者，topLayout向上拖动，以较快的速度松手时，fling效果如何传达到bottomLayout？<br/><br/>
-或许你会说，我们自定义CoordinateLayout...<br/><br/>
+或许很多人都想到了CoordinatorLayout，诚然，CoordinatorLayout是距离这种下拉刷新效果最近的官方控件。但是，有一些体验上的问题，却是CoordinatorLayout也无能为力的。比如说：在topLayout按下触摸，向下拖动时，怎么把loading动画慢慢显示出来? 或者，topLayout向上拖动，以较快的速度松手时，fling效果如何传达到bottomLayout？<br/><br/>
+或许你会说，我们自定义CoordinatorLayout...<br/><br/>
 我不否认这可能是一种可行的方案，如果你对其源码足够了解，如果你对Nesting机制和behavior有足够的掌控。<br/><br/>
 可是我也想问，如果**这些如果**都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
 CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
