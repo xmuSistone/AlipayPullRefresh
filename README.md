@@ -2,8 +2,11 @@
 Alipay Pull Refresh
 
 模仿支付宝首页下拉刷新效果<br/><br/>
-支付宝首页的下拉刷新效果不走寻常路，跟我们理解的很不一样。它在下拉刷新时，分成上下两段，loading动画处于中间的位置。在拖拽的时候，就像是从中间撕裂的样子。<br/><br/>
-真要细细琢磨起来，这样的下拉刷新确实挺难搞的。在页面中的任何一处都能上下拖动，确实很考验细心&耐心。
+支付宝首页的下拉刷新效果不走寻常路，跟我们理解的很不一样。它在下拉刷新时，分成上下两段（topLayout/bottomLayout），loading动画处于中间的位置。在拖拽的时候，就像是从中间撕裂的样子。<br/><br/>
+真要细细琢磨起来，这样的下拉刷新效果，确实挺难搞的。在页面中的任何一处都能上下拖动，确实很考验细心&耐心。
+
+### 原理说明
+或许很多人都想到了CoordinateLayout，诚然，CoordinateLayout是距离这种下拉刷新最近的官方控件。但是，有一些体验上的问题，却是CoordinateLayout也无能为力的。比如说：在
 
 ### 截图
 效果图如下：<br/>
@@ -63,3 +66,5 @@ Alipay Pull Refresh
         topLinearLayout.bindParallax(scrollView, topBlueLayout);
 ```
 
+### demo APK下载
+[点击下载](https://github.com/xmuSistone/AlipayPullRefresh/blob/master/app-release.apk?raw=true)
