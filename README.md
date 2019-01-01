@@ -13,4 +13,5 @@ Alipay Pull Refresh
 </br>
 </center>
 <p>
-点击图片查看截屏视频：[传送门](http://xmusistone.github.io/capture/alipay1.html)
+点击图片查看截屏视频：
+  [传送门](http://xmusistone.github.io/capture/alipay1.html)
