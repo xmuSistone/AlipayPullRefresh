@@ -15,7 +15,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 4. 将FrameLayout自定义，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
 
 是的，**我们扰乱了Touch事件的分发流程，简直就是在胡搞！**<br/>
-没人说过分发流程不允许打乱的吧？虽然是胡搞，但是我们能隐隐约约看到一些好玩的东西。
+虽然是胡搞，但是我们能隐隐约约看到一些好玩的东西。而且，如果我们扰乱的恰到好处，应该也没人会反对吧？
 支付宝的首页刷新是不是可以理解成这样：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
 2. ScrollView顶部留白，占位用；
