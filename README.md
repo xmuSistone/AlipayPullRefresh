@@ -14,7 +14,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 3. 将TextView设置成可点击的，setClickable(true)，用手指滑动屏幕时，ScrollView无法正常滚动。
 4. 将FrameLayout自定义，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
 
-是的，我们打乱了Touch事件的分发流程，简直就是在胡搞！<br/>
+是的，**我们打乱了Touch事件的分发流程，简直就是在胡搞！**<br/>
 没人说过分发流程不允许打乱的吧？虽然是胡搞，但是我们能隐隐约约看到一些好玩的东西。
 支付宝的首页刷新是不是可以理解成这样：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
