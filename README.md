@@ -6,7 +6,28 @@ Alipay Pull Refresh
 真要细细琢磨起来，这样的下拉刷新效果，确实挺难搞的。在页面中的任何一处都能上下拖动，确实很考验细心&耐心。
 
 ### 原理说明
-或许很多人都想到了CoordinateLayout，诚然，CoordinateLayout是距离这种下拉刷新最近的官方控件。但是，有一些体验上的问题，却是CoordinateLayout也无能为力的。比如说：在
+或许很多人都想到了CoordinateLayout，诚然，CoordinateLayout是距离这种下拉刷新效果最近的官方控件。但是，有一些体验上的问题，却是CoordinateLayout也无能为力的。比如说：在topLayout按下触摸，向下拖动时，怎么把loading动画慢慢显示出来? 或者，topLayout向上拖动，以较快的速度松手时，fling效果如何传达到bottomLayout？<br/><br/>
+或许你会说，我们自定义CoordinateLayout...<br/><br/>
+我不否认这可能是一种可行的方案，如果你对其源码足够了解，对nesting机制和behavior有足够的掌控。<br/><br/>
+可是我也想问，如果这些如果都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
+CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
+我曾经做过一个试验：
+1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView，放在顶部，背景透明;
+2. 我用手指滑动屏幕，ScrollView可以正常滚动；
+3. 将TextView设置成可点击的，setClickable(true)，用手指滑动屏幕时，ScrollView无法正常滚动。
+4. 将FrameLayout自定义，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
+
+是的，我们打乱了Touch事件的分发流程，简直就是在胡搞！<br/>
+没人说过分发流程不允许打乱的吧？虽然是胡搞，但是我们能隐隐约约看到一些好玩的东西。
+支付宝的首页刷新是不是可以理解成这样：
+1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
+2. ScrollView顶部留白，占位用；
+3. topLayout对相应的touch事件转发给ScrollView；
+4. ScrollView内部消费自己的touch事件，和外部分发的Touch事件；<br/>
+感兴趣的同学可以先这么试试看。<br/>
+我可以告诉的是，你一定会遇到种种种种的问题。不用怕，这些都是考验，走过九九八十一道坎，你就会对系统底层知识的了解更进一步；<br/>
+前文提及offsetLocation是个好东西，能用好这个彩蛋，绝对是一件值得开心的事情。<br/><br/>
+源码中的总体思路也确实是这样走的，如果有问题，欢迎提issue；
 
 ### 截图
 效果图如下：<br/>
