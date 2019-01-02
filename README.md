@@ -20,7 +20,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
 2. ScrollView顶部留白，占位用；
 3. topLayout对相应的touch事件转发给ScrollView；
-4. ScrollView内部消费自己的touch事件，和外部分发的Touch事件；
+4. ScrollView消费Touch事件；如果触摸滑动落在topLayout，则Touch事件转发给ScrollView；如果触摸滑动落在ScrollView内部，则ScrollView调用自身的Touch消费即可；
 
 感兴趣的同学可以先这么试试看。<br/><br/>
 可以透露的是，你一定会遇到林林总总的麻烦。不用怕，这些都是考验，走过九九八十一道坎，你会对系统底层的理解更进一步；而且，前文提及offsetLocation是个好东西，能用好这个彩蛋，绝对是一件值得开心的事情。<br/>
