@@ -319,7 +319,9 @@ public class AlipayScrollView extends ScrollView {
 
     public void setRefreshing(boolean refreshing) {
         this.refreshing = refreshing;
+        this.spring.setCurrentValue(firstViewPosition);
         if (refreshing) {
+            progressImageView.startProgress();
             spring.setEndValue(progressHeight);
         } else {
             spring.setEndValue(0);

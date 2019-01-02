@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 scrollView.setRefreshing(false);
             }
-        }, 800);
+        }, 1600);
     }
 
     private void toast(String message) {
