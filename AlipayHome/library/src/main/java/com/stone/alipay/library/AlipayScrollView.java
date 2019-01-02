@@ -81,7 +81,9 @@ public class AlipayScrollView extends ScrollView {
             @Override
             public void onSpringAtRest(Spring spring) {
                 super.onSpringAtRest(spring);
+
                 if (firstViewPosition < progressHeight / 2) {
+                    refreshing = false;
                     progressImageView.stopProgress();
                 }
             }
@@ -280,11 +282,13 @@ public class AlipayScrollView extends ScrollView {
             spring.setEndValue(progressHeight);
 
             if (!refreshing) {
+                refreshing = true;
                 if (null != onRefreshListener) {
                     onRefreshListener.onRefresh();
                 }
             }
         } else {
+            refreshing = false;
             spring.setAtRest();
             spring.setCurrentValue(top);
             spring.setEndValue(0);
