@@ -5,9 +5,9 @@
 ### 原理说明
 或许很多人都想到了CoordinatorLayout，诚然，CoordinatorLayout是距离这种下拉刷新效果最近的官方控件。但是，有一些体验上的问题，却是CoordinatorLayout也无能为力的。比如说：在topLayout按下触摸，向下拖动时，怎么把loading动画慢慢显示出来? 或者，topLayout向上拖动，以较快的速度松手时，fling效果如何传达到bottomLayout？<br/><br/>
 或许你会说，我们自定义CoordinatorLayout...<br/><br/>
-我不否认这可能是一种可行的方案，如果你对其源码足够了解，如果你对Nesting机制和behavior有足够的掌控。<br/><br/>
+我不否认这可能是一种可行的方案，如果你对其源码足够了解，如果你对Nesting机制和behavior有足够的掌控力。<br/><br/>
 可是我也想问，如果**这些如果**都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
-CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
+CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
 我曾经做过一个试验：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView，放在顶部，背景透明;
 2. 我用手指滑动屏幕，ScrollView可以正常滚动；
@@ -20,7 +20,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
 2. ScrollView顶部留白，占位用；
 3. topLayout对相应的touch事件转发给ScrollView；
-4. ScrollView内部消费自己的touch事件，和外部分发的Touch事件；
+4. ScrollView消费Touch事件；如果触摸滑动落在topLayout，则Touch事件转发给ScrollView；如果触摸滑动落在ScrollView内部，则ScrollView调用自身的Touch消费即可；
 
 感兴趣的同学可以先这么试试看。<br/><br/>
 可以透露的是，你一定会遇到林林总总的麻烦。不用怕，这些都是考验，走过九九八十一道坎，你会对系统底层的理解更进一步；而且，前文提及offsetLocation是个好东西，能用好这个彩蛋，绝对是一件值得开心的事情。<br/>
@@ -28,11 +28,11 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 
 ### 截图
 效果图如下：<br/>
-<a href="http://xmusistone.github.io/capture/alipay1.html" target="_blank">
+<a href="https://xmusistone.github.io/capture/alipay1.html" target="_blank">
   <img src="capture1.png" width="460"/>
 </a>
 
-点击图片可查看[动态的截屏视频](http://xmusistone.github.io/capture/alipay1.html)
+点击图片可查看[动态的截屏视频](https://xmusistone.github.io/capture/alipay1.html)
 
 ### 使用方法
 1. layout布局文件
