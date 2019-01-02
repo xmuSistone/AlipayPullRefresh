@@ -32,7 +32,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
   <img src="capture1.png" width="460"/>
 </a>
 
-点击图片可查看[动态的截屏视频](https://xmusistone.github.io/capture/alipay1.html)
+点击图片可查看[截屏视频](https://xmusistone.github.io/capture/alipay1.html)
 
 ### 使用方法
 1. layout布局文件
