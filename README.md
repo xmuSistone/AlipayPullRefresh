@@ -28,7 +28,7 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 
 ### 截图
 效果图如下：<br/>
-<a href="https://xmusistone.github.io/capture/video.html?content=alipayCapture1.mp4" target="_blank">
+<a href="http://pkqqjgk6u.bkt.clouddn.com/alipayCapture1.mp4" target="_blank">
   <img src="capture1.png" width="460"/>
 </a>
 
