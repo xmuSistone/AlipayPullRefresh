@@ -17,7 +17,7 @@ import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 
 /**
- * Created by zhangll on 2018/12/25.
+ * Created by xmuSistone on 2018/12/25.
  */
 
 public class AlipayScrollView extends ScrollView {

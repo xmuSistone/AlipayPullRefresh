@@ -39,17 +39,17 @@ public class CustomizedToast {
         }
 
         // 初始化ToastView
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context.getApplicationContext());
         View toastView = inflater.inflate(R.layout.toast_layout, null);
         TextView toastTv = toastView.findViewById(R.id.toast_tv);
         toastTv.setText(toastStr);
 
         // 初始化Toast
-        Toast toast = new Toast(context);
+        Toast toast = new Toast(context.getApplicationContext());
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastView);
 
-        toast.setGravity(Gravity.BOTTOM, 0, Utils.dp2px(context, 30));
+        toast.setGravity(Gravity.BOTTOM, 0, Utils.dp2px(context.getApplicationContext(), 30));
         toast.show();
         lastToast = toast;
     }
