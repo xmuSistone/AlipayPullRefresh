@@ -2,6 +2,14 @@
 支付宝首页的下拉刷新效果不走寻常路，跟我们理解的很不一样。它在下拉刷新时，分成上下两段（topLayout & bottomLayout），loading动画处于中间的位置。在拖拽的时候，就像是从中间撕开的样子。<br/><br/>
 真要细细琢磨起来，这样的下拉刷新效果，确实挺难搞的。在页面中的任何一处都能上下拖动，相当考验细心和耐心。
 
+### 截图
+效果图如下：<br/>
+<a href="https://xmusistone.github.io/capture/video.html?content=alipayCapture1.mp4" target="_blank">
+  <img src="capture1.png" width="460"/>
+</a>
+
+点击图片可查看[截屏视频](https://xmusistone.github.io/capture/video.html?content=alipayCapture1.mp4)
+
 ### 原理说明
 或许很多人都想到了CoordinatorLayout，诚然，CoordinatorLayout是距离这种下拉刷新效果最近的官方控件。但是，有一些体验上的问题，却是CoordinatorLayout也无能为力的。比如说：在topLayout按下触摸，向下拖动时，怎么把loading动画慢慢显示出来? 或者，topLayout向上拖动，以较快的速度松手时，fling效果如何传达到bottomLayout？<br/><br/>
 或许你会说，我们自定义CoordinatorLayout...<br/><br/>
@@ -25,14 +33,6 @@ CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不�
 感兴趣的同学可以先这么试试看。<br/><br/>
 可以透露的是，你一定会遇到林林总总的麻烦。不用怕，这些都是考验，走过九九八十一道坎，你会对系统底层的理解更进一步；而且，前文提及offsetLocation是个好东西，能用好这个彩蛋，绝对是一件值得开心的事情。<br/><br/>
 源码中的总体思路也确实是这样走的，如果代码有问题，欢迎提issue；
-
-### 截图
-效果图如下：<br/>
-<a href="https://xmusistone.github.io/capture/video.html?content=alipayCapture1.mp4" target="_blank">
-  <img src="capture1.png" width="460"/>
-</a>
-
-点击图片可查看[截屏视频](https://xmusistone.github.io/capture/video.html?content=alipayCapture1.mp4)
 
 ### 使用方法
 1. layout布局文件
