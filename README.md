@@ -15,7 +15,7 @@
 或许你会说，我们自定义CoordinatorLayout...<br/><br/>
 我不否认这可能是一种可行的方案，如果你对其源码足够了解，如果你对Nesting机制和behavior有足够的掌控力。<br/><br/>
 可是我也想问，如果**这些如果**都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
-CoordinatorLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/>
+CoordinatorLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
 然而无论如何，CoordinatorLayout规规矩矩做事，本本分分做View，跟我们理解的Touch事件分发机制是并不冲突的。<br/><br/>
 
 我曾经做过一个试验：
@@ -43,7 +43,7 @@ public class AlipayContainerLayout extends FrameLayout {
 ```
 
 你可能会说：**这扰乱了Touch事件的分发流程，简直就是在胡搞！**<br/>
-是的，不得不承认这确实是耍流氓，是一种**违法行为**！呵呵，淡定！脑子里瞬间闪过很多开源框架，用反射、用Hook的方式欺骗系统、绕过检查等等，跟它们比起来，我们只能算轻型的投机倒把而已（捂脸），不要方！
+是的，不得不承认这确实是耍流氓，是一种**违法行为**！呵呵，淡定！脑子里瞬间闪过很多开源框架，用反射、用Hook的方式欺骗系统、绕过检查等等，跟它们比起来，我们只能算轻型的投机倒把而已（捂脸），不要方！<br/><br/>
 那么，支付宝的首页刷新是不是可以理解成这样：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
 2. ScrollView顶部留白，占位用；
