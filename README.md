@@ -17,12 +17,30 @@
 可是我也想问，如果**这些如果**都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
 CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
 我曾经做过一个试验：
-1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView，放在顶部，背景透明;
+1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView(MATCH_PARENAT)，放在顶部，背景透明;
 2. 我用手指滑动屏幕，ScrollView可以正常滚动；
 3. 将TextView设置成可点击的，setClickable(true)，用手指滑动屏幕时，ScrollView无法正常滚动。
-4. 将FrameLayout自定义，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
+4. 自定义FrameLayout，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
 
-是的，**我们扰乱了Touch事件的分发流程，简直就是在胡搞！**<br/>
+关键代码如下：
+```java
+public class AlipayContainerLayout extends FrameLayout {
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        scrollView.onInterceptTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
+    }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        scrollView.onTouchEvent(event);
+        return true;
+    }
+}
+```
+
+是的，**我们扰乱了Touch事件的分发流程，这简直就是在胡搞！**<br/>
 虽然是胡搞，但是我们能隐隐约约看到一些好玩的东西。而且，如果我们扰乱的恰到好处，应该也没人会反对吧？
 支付宝的首页刷新是不是可以理解成这样：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，第二个子View是topLayout；
