@@ -15,7 +15,7 @@
 或许你会说，我们自定义CoordinatorLayout...<br/><br/>
 我不否认这可能是一种可行的方案，如果你对其源码足够了解，如果你对Nesting机制和behavior有足够的掌控力。<br/><br/>
 可是我也想问，如果**这些如果**都能成真的话，干嘛不来一次全新的旅程？<br/><br/>
-CoordinateLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
+CoordinatorLayout和Nesting机制告诉我们，一次Touch拖动事件，并不是一次性消费的，而是可以被多个View同时消费。如果你涉猎过足够多的系统源码，会知道Nesting机制的核心是MotionEvent有一个bug级的方法offsetLocation。这是一个public方法，我们在处理Touch事件时一样可以调用。<br/><br/>
 我曾经做过一个试验：
 1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView(MATCH_PARENAT)，放在顶部，背景透明;
 2. 我用手指滑动屏幕，ScrollView可以正常滚动；
