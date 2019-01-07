@@ -19,7 +19,7 @@ CoordinatorLayout和Nesting机制告诉我们，一次Touch拖动事件，并不
 然而无论如何，CoordinatorLayout规规矩矩做事，本本分分做View，跟我们理解的Touch事件分发机制是并不冲突的。<br/><br/>
 
 我曾经做过一个试验：
-1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView(MATCH_PARENAT)，放在顶部，背景透明;
+1. FrameLayout包含两个子View，第一个子View是ScrollView，放在底部；第二个子View是TextView(MATCH_PARENAT)放在顶部，用作遮罩，背景透明;
 2. 我用手指滑动屏幕，ScrollView可以正常滚动；
 3. 将TextView设置成可点击的，setClickable(true)，用手指滑动屏幕时，ScrollView无法正常滚动。
 4. 自定义FrameLayout，onInterceptTouchEvent和onTouchEvent在自行处理的同时，也转发给scrollView，scrollView可以正常滑动;
