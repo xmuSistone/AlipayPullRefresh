@@ -93,13 +93,26 @@ public class MainActivity extends AppCompatActivity {
             public void onScrollChange(int scrollY) {
                 parallaxScroll(scrollY);
             }
+
+            @Override
+            public void onFlingStop() {
+                snapHeaderView();
+            }
         });
         topLinearLayout.bindParallax(scrollView, topBlueLayout);
     }
 
+    private void snapHeaderView() {
+        if (scrollView.getScrollY() < topBlueLayout.getMeasuredHeight() / 2) {
+            scrollView.snapTo(0);
+        } else if (scrollView.getScrollY() < topBlueLayout.getMeasuredHeight()) {
+            scrollView.snapTo(topBlueLayout.getMeasuredHeight());
+        }
+    }
+
     private void parallaxScroll(int scrollY) {
         // 1. toolbar透明度渐变
-        int maxDistance = frontToolbar.getMeasuredHeight() * 2;
+        int maxDistance = topBlueLayout.getMeasuredHeight();
         float progress = (float) scrollY / maxDistance;
         if (progress < 0) {
             progress = 0;
@@ -108,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
         }
         frontToolbar.setAlpha(progress);
         backToolbar.setAlpha(1 - progress);
+
+
+        float blueAlpha = 1 - progress;
+        topBlueLayout.setAlpha(blueAlpha);
+
 
         // 2. topLayout蓝色区域视差
         topLinearLayout.syncScrollParallax();

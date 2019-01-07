@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.OverScroller;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -15,6 +16,8 @@ import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by xmuSistone on 2018/12/25.
@@ -26,7 +29,7 @@ public class AlipayScrollView extends ScrollView {
     private int[] SLOW_DOWN_STEP = new int[7];
     private float lastProcessY;
     private int downTouchOffset = 0;
-    private Spring spring;
+    private Spring marginSpring, scrollSpring;
     private View topLayout;
 
     private int progressColor;
@@ -38,6 +41,9 @@ public class AlipayScrollView extends ScrollView {
     private boolean refreshing = false;
     private OnRefreshListener onRefreshListener;
     private ScrollChangeListener scrollChangeListener;
+
+    private boolean flinging = false;
+    private OverScroller overScroller;
 
     public AlipayScrollView(Context context) {
         this(context, null);
@@ -68,9 +74,9 @@ public class AlipayScrollView extends ScrollView {
         // 2. 松手时的动画
         SpringConfig springConfig = SpringConfig.fromOrigamiTensionAndFriction(3, 2);
         SpringSystem mSpringSystem = SpringSystem.create();
-        spring = mSpringSystem.createSpring().setSpringConfig(springConfig);
-        spring.setOvershootClampingEnabled(true);
-        spring.addListener(new SimpleSpringListener() {
+        marginSpring = mSpringSystem.createSpring().setSpringConfig(springConfig);
+        marginSpring.setOvershootClampingEnabled(true);
+        marginSpring.addListener(new SimpleSpringListener() {
             @Override
             public void onSpringUpdate(Spring spring) {
                 int yPos = (int) spring.getCurrentValue();
@@ -88,6 +94,39 @@ public class AlipayScrollView extends ScrollView {
                 }
             }
         });
+
+
+        scrollSpring = mSpringSystem.createSpring().setSpringConfig(springConfig);
+        scrollSpring.setOvershootClampingEnabled(true);
+        scrollSpring.addListener(new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                int scrollY = (int) spring.getCurrentValue();
+                setScrollY(scrollY);
+            }
+        });
+
+        try {
+            Field scrollerField = ScrollView.class.getDeclaredField("mScroller");
+            scrollerField.setAccessible(true);
+            this.overScroller = (OverScroller) scrollerField.get(this);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (flinging && overScroller.isFinished()) {
+            flinging = false;
+            if (null != scrollChangeListener) {
+                scrollChangeListener.onFlingStop();
+            }
+        }
     }
 
     @Override
@@ -123,8 +162,10 @@ public class AlipayScrollView extends ScrollView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            flinging = false;
             lastProcessY = ev.getRawY();
             downTouchOffset = firstViewPosition;
+            scrollSpring.setAtRest();
         } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             if (parentView.getTouchingView() != this) {
                 ev.offsetLocation(0, downTouchOffset);
@@ -148,6 +189,7 @@ public class AlipayScrollView extends ScrollView {
             }
             super.onTouchEvent(ev);
         } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
+            flinging = true;
             if (parentView.getTouchingView() != this) {
                 ev.offsetLocation(0, downTouchOffset);
             }
@@ -277,9 +319,9 @@ public class AlipayScrollView extends ScrollView {
         int top = firstViewPosition;
         if (top >= progressHeight) {
             progressImageView.startProgress();
-            spring.setAtRest();
-            spring.setCurrentValue(top);
-            spring.setEndValue(progressHeight);
+            marginSpring.setAtRest();
+            marginSpring.setCurrentValue(top);
+            marginSpring.setEndValue(progressHeight);
 
             if (!refreshing) {
                 refreshing = true;
@@ -289,9 +331,9 @@ public class AlipayScrollView extends ScrollView {
             }
         } else {
             refreshing = false;
-            spring.setAtRest();
-            spring.setCurrentValue(top);
-            spring.setEndValue(0);
+            marginSpring.setAtRest();
+            marginSpring.setCurrentValue(top);
+            marginSpring.setEndValue(0);
         }
     }
 
@@ -323,12 +365,12 @@ public class AlipayScrollView extends ScrollView {
 
     public void setRefreshing(boolean refreshing) {
         this.refreshing = refreshing;
-        this.spring.setCurrentValue(firstViewPosition);
+        this.marginSpring.setCurrentValue(firstViewPosition);
         if (refreshing) {
             progressImageView.startProgress();
-            spring.setEndValue(progressHeight);
+            marginSpring.setEndValue(progressHeight);
         } else {
-            spring.setEndValue(0);
+            marginSpring.setEndValue(0);
         }
     }
 
@@ -356,11 +398,27 @@ public class AlipayScrollView extends ScrollView {
         this.lastProcessY = rawY;
     }
 
+    public void snapTo(int scrollY) {
+        if (scrollY != getScrollY()) {
+            scrollSpring.setCurrentValue(getScrollY());
+            scrollSpring.setEndValue(scrollY);
+        }
+    }
+
     public interface OnRefreshListener {
         void onRefresh();
     }
 
     public interface ScrollChangeListener {
+
+        /**
+         * 滑动
+         */
         void onScrollChange(int scrollY);
+
+        /**
+         * 滑动结束监听
+         */
+        void onFlingStop();
     }
 }

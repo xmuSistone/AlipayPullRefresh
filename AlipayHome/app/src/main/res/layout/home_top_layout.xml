@@ -2,13 +2,13 @@
 <com.stone.alipay.widget.TopLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/statusBarColor"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/top_blue_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/statusBarColor"
         android:orientation="vertical">
 
         <LinearLayout
