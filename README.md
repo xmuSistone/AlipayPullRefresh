@@ -56,50 +56,50 @@ public class AlipayContainerLayout extends FrameLayout {
 1. layout布局文件
 ```xml
 <com.stone.alipay.library.AlipayContainerLayout
-        android:id="@+id/home_container_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        alipay:progressColor="@color/statusBarColor"
-        alipay:progressCenterOffset="3dp"
-        alipay:progressHeight="@dimen/alipay_progress_height" />
+    android:id="@+id/home_container_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    alipay:progressColor="@color/statusBarColor"
+    alipay:progressCenterOffset="3dp"
+    alipay:progressHeight="@dimen/alipay_progress_height" />
 ```
 2. java代码使用
 ```java
-        containerLayout = findViewById(R.id.home_container_layout);
-        containerLayout.setDecorator(new AlipayContainerLayout.Decorator() {
-            @Override
-            public View getContentView() {
-                // 内部滑动的scrollView content
-                View contentView = initContentView(inflater);
-                return contentView;
-            }
+    containerLayout = findViewById(R.id.home_container_layout)
+    containerLayout.setDecorator(new AlipayContainerLayout.Decorator() {
+        @Override
+        public View getContentView() {
+            // 内部滑动的scrollView content
+            View contentView = initContentView(inflater);
+            return contentView;
+        }
 
-            @Override
-            public View getTopLayout() {
-                // 顶部悬浮的topLayout
-                topLinearLayout = (TopLinearLayout) initTopLayout(inflater);
-                return topLinearLayout;
-            }
-        });
+        @Override
+        public View getTopLayout() {
+            // 顶部悬浮的topLayout
+            topLinearLayout = (TopLinearLayout) initTopLayout(inflater);
+            return topLinearLayout;
+        }
+    });
 
-        // 2. 下拉刷新
-        scrollView = containerLayout.getScrollView();
-        scrollView.setOnRefreshListener(new AlipayScrollView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 下拉刷新回调，请求网络数据
-                requestNetwork();
-            }
-        });
+    // 2. 下拉刷新
+    scrollView = containerLayout.getScrollView();
+    scrollView.setOnRefreshListener(new AlipayScrollView.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            // 下拉刷新回调，请求网络数据
+            requestNetwork();
+        }
+    });
 
-        // 3. 顶部视差效果绑定
-        scrollView.setScrollChangeListener(new AlipayScrollView.ScrollChangeListener() {
-            @Override
-            public void onScrollChange(int scrollY) {
-                parallaxScroll(scrollY);
-            }
-        });
-        topLinearLayout.bindParallax(scrollView, topBlueLayout);
+    // 3. 顶部视差效果绑定
+    scrollView.setScrollChangeListener(new AlipayScrollView.ScrollChangeListener() {
+        @Override
+        public void onScrollChange(int scrollY) {
+            parallaxScroll(scrollY);
+        }
+    });
+    topLinearLayout.bindParallax(scrollView, topBlueLayout);
 ```
 
 ### demo APK下载
