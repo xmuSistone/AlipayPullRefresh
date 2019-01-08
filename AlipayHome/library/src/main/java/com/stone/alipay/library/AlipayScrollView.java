@@ -56,13 +56,15 @@ public class AlipayScrollView extends ScrollView {
     public AlipayScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        // 1. 初始化下拉缓冲区间
+        // 1. xml配置信息获取
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.alipay);
         int defaultProgressHeight = dp2px(55);
         this.progressHeight = typedArray.getDimensionPixelSize(R.styleable.alipay_progressHeight, defaultProgressHeight);
         this.progressCenterOffset = typedArray.getDimensionPixelSize(R.styleable.alipay_progressCenterOffset, 0);
         this.progressColor = typedArray.getColor(R.styleable.alipay_progressColor, Color.BLACK);
+        typedArray.recycle();
 
+        // 2. 初始化越界拖拽阻力参数
         int step = dp2px(20);
         int initSlowDownThreshold = progressHeight;
         int index = 0;
@@ -71,7 +73,7 @@ public class AlipayScrollView extends ScrollView {
             index++;
         }
 
-        // 2. 松手时的动画
+        // 3. 松手时的动画，用margin来做
         SpringConfig springConfig = SpringConfig.fromOrigamiTensionAndFriction(3, 2);
         SpringSystem mSpringSystem = SpringSystem.create();
         marginSpring = mSpringSystem.createSpring().setSpringConfig(springConfig);
@@ -95,7 +97,7 @@ public class AlipayScrollView extends ScrollView {
             }
         });
 
-
+        // 4. snap停靠，属性动画用腻了，还是用spring吧
         scrollSpring = mSpringSystem.createSpring().setSpringConfig(springConfig);
         scrollSpring.setOvershootClampingEnabled(true);
         scrollSpring.addListener(new SimpleSpringListener() {
@@ -106,6 +108,7 @@ public class AlipayScrollView extends ScrollView {
             }
         });
 
+        // 5. 反射获取scroller，这个是用来在computeScroll中判定ScrollView是否fling停止了，格外注意proguard不能混淆ScrollView
         try {
             Field scrollerField = ScrollView.class.getDeclaredField("mScroller");
             scrollerField.setAccessible(true);
@@ -121,6 +124,8 @@ public class AlipayScrollView extends ScrollView {
     @Override
     public void computeScroll() {
         super.computeScroll();
+
+        // 判定是否fling停止，用来判定是否需要snap的逻辑入口
         if (flinging && overScroller.isFinished()) {
             flinging = false;
             if (null != scrollChangeListener) {
@@ -132,6 +137,7 @@ public class AlipayScrollView extends ScrollView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+
         parentView = (AlipayContainerLayout) getParent();
         topLayout = parentView.getTopLayout();
         progressImageView = parentView.getProgressImageView();
@@ -148,6 +154,9 @@ public class AlipayScrollView extends ScrollView {
         }
     }
 
+    /**
+     * ScrollView上下滑动时，topLayout需要跟随滑动
+     */
     private void adjustTopLayoutPos() {
         int topLayoutTop = -getScrollY();
         if (topLayoutTop < -topLayout.getHeight()) {
@@ -165,6 +174,8 @@ public class AlipayScrollView extends ScrollView {
             flinging = false;
             lastProcessY = ev.getRawY();
             downTouchOffset = firstViewPosition;
+
+            // 手指按下，动画结束
             scrollSpring.setAtRest();
         } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             if (parentView.getTouchingView() != this) {
@@ -174,11 +185,6 @@ public class AlipayScrollView extends ScrollView {
             super.onInterceptTouchEvent(ev);
         }
         return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
     }
 
     @Override
@@ -337,6 +343,9 @@ public class AlipayScrollView extends ScrollView {
         }
     }
 
+    /**
+     * 用margin的形式完成下拉位移
+     */
     public void setFirstViewPosition(int firstViewPosition) {
         this.firstViewPosition = firstViewPosition;
         ViewGroup.LayoutParams lp = firstChildView.getLayoutParams();
@@ -363,6 +372,9 @@ public class AlipayScrollView extends ScrollView {
         return refreshing;
     }
 
+    /**
+     * 手动更新刷新状态
+     */
     public void setRefreshing(boolean refreshing) {
         this.refreshing = refreshing;
         this.marginSpring.setCurrentValue(firstViewPosition);

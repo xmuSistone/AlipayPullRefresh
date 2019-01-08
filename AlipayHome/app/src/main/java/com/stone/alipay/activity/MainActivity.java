@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.stone.alipay.R;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private AlipayContainerLayout containerLayout;
     private AlipayScrollView scrollView;
 
-    private View backToolbar, frontToolbar;
+    private RelativeLayout backToolbar, frontToolbar;
     private TopLinearLayout topLinearLayout;
     private View topBlueLayout;
 
@@ -119,10 +120,22 @@ public class MainActivity extends AppCompatActivity {
         } else if (progress > 1.0f) {
             progress = 1.0f;
         }
-        frontToolbar.setAlpha(progress);
-        backToolbar.setAlpha(1 - progress);
 
+        // 1.1 前置Toolbar
+        float frontAlpha = 0;
+        if (progress > 0.5f) {
+            frontAlpha = (progress - 0.5f) * 2;
+        }
+        frontToolbar.setAlpha(frontAlpha);
 
+        // 1.2. 后置Toolbar
+        float backAlpha = 0.0f;
+        if (progress < 0.5f) {
+            backAlpha = (0.5f - progress) * 2;
+        }
+        backToolbar.setAlpha(backAlpha);
+
+        // 1.3 蓝色区域
         float blueAlpha = 1 - progress;
         topBlueLayout.setAlpha(blueAlpha);
 

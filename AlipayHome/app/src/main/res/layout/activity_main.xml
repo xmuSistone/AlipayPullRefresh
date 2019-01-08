@@ -88,7 +88,7 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <com.stone.alipay.widget.MaskRelativeLayout
             android:id="@+id/home_toolbar_front"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -138,7 +138,7 @@
                 android:padding="3dp"
                 android:src="@drawable/add" />
 
-        </RelativeLayout>
+        </com.stone.alipay.widget.MaskRelativeLayout>
 
     </FrameLayout>
 

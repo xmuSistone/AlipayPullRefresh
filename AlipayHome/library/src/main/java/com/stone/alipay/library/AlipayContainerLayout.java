@@ -102,6 +102,7 @@ public class AlipayContainerLayout extends FrameLayout {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
+        // ScrollView用margin下拉刷新时，会触发整体的View树重绘，此处需要同步topLayout位移
         if (null != topLayout) {
             int topLayoutTop = -scrollView.getScrollY();
             if (topLayoutTop < -topLayout.getMeasuredHeight()) {
@@ -152,6 +153,10 @@ public class AlipayContainerLayout extends FrameLayout {
         return scrollView;
     }
 
+    /**
+     * 绑定装饰器
+     * @param decorator
+     */
     public void setDecorator(Decorator decorator) {
         if (this.decorator != null) {
             throw new RuntimeException("不能重复绑定decorator");
