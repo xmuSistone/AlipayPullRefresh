@@ -173,8 +173,7 @@ public class AlipayScrollView extends ScrollView {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             flinging = false;
             lastProcessY = ev.getRawY();
-            downTouchOffset = firstViewPosition;
-
+            downTouchOffset = refreshing ? firstViewPosition - progressHeight : firstViewPosition;
             // 手指按下，动画结束
             scrollSpring.setAtRest();
         } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
