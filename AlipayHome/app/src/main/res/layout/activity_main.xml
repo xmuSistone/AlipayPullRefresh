@@ -1,153 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:alipay="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0"
+    android:background="@color/statusBarColor"
     android:orientation="vertical">
 
     <View
         android:id="@+id/home_status_view"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/statusBarColor" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
+    <!--toolbar底部view-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/home_toolbar_back"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/statusBarColor">
+        android:layout_height="@dimen/home_toolbar_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_status_view">
 
-        <RelativeLayout
-            android:id="@+id/home_toolbar_back"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/top_right1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="10dp"
+            android:padding="7dp"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="16dp"
-                android:layout_toLeftOf="@+id/top_right2"
-                android:background="@drawable/white_corner">
+        <ImageView
+            android:id="@+id/top_right2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="6dp"
+            android:padding="6dp"
+            android:src="@drawable/head_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/top_right1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/top_icon1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:padding="2dp"
-                    android:src="@drawable/search" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/top_icon2"
-                    android:layout_toRightOf="@+id/top_icon1"
-                    android:background="@color/transparent"
-                    android:focusable="false"
-                    android:gravity="center_vertical"
-                    android:hint="公积金查提"
-                    android:textColorHint="@color/gray"
-                    android:textSize="14sp" />
+        <!--下面四个控件是搜索输入框，白色背景-->
 
-                <ImageView
-                    android:id="@+id/top_icon2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/voice" />
+        <View
+            android:id="@+id/toolbar_input_back"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="11dp"
+            android:background="@drawable/white_corner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/top_right2"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+        <ImageView
+            android:id="@+id/top_search_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:padding="2dp"
+            android:src="@drawable/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/toolbar_input_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/top_right1"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:padding="7dp"
-                android:src="@drawable/add" />
+        <ImageView
+            android:id="@+id/top_voice_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/voice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/toolbar_input_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/top_right2"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="6dp"
-                android:layout_toLeftOf="@id/top_right1"
-                android:padding="6dp"
-                android:src="@drawable/head_default" />
 
-        </RelativeLayout>
-
-        <com.stone.alipay.widget.MaskRelativeLayout
-            android:id="@+id/home_toolbar_front"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0"
-            android:background="@color/statusBarColor"
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@color/transparent"
+            android:focusable="false"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:hint="公积金查提"
+            android:textColorHint="@color/gray"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/top_search_icon"
+            app:layout_constraintRight_toLeftOf="@+id/top_voice_icon"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/toolbar_icon1"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/scan" />
+    </android.support.constraint.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/toolbar_icon2"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/toolbar_icon1"
-                android:src="@drawable/pay" />
+    <!--toolbar顶部遮罩View-->
 
-            <ImageView
-                android:id="@+id/toolbar_icon3"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/toolbar_icon2"
-                android:src="@drawable/receive_money" />
+    <com.stone.alipay.widget.MaskConstraintLayout
+        android:id="@+id/home_toolbar_front"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_toolbar_height"
+        android:alpha="0"
+        android:background="@color/statusBarColor"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_status_view">
 
-            <ImageView
-                android:id="@+id/toolbar_icon4"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/toolbar_icon3"
-                android:padding="2dp"
-                android:src="@drawable/search_white" />
+        <ImageView
+            android:id="@+id/toolbar_icon1"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/scan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:padding="3dp"
-                android:src="@drawable/add" />
+        <ImageView
+            android:id="@+id/toolbar_icon2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/pay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/toolbar_icon1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </com.stone.alipay.widget.MaskRelativeLayout>
+        <ImageView
+            android:id="@+id/toolbar_icon3"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/receive_money"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/toolbar_icon2"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/toolbar_icon4"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="30dp"
+            android:padding="2dp"
+            android:src="@drawable/search_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/toolbar_icon3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="3dp"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.stone.alipay.widget.MaskConstraintLayout>
 
     <com.stone.alipay.library.AlipayContainerLayout
         android:id="@+id/home_container_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        alipay:progressColor="@color/statusBarColor"
+        android:layout_height="0dp"
+        android:background="#f0f0f0"
         alipay:progressCenterOffset="3dp"
-        alipay:progressHeight="@dimen/alipay_progress_height" />
+        alipay:progressColor="@color/statusBarColor"
+        alipay:progressHeight="@dimen/alipay_progress_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_toolbar_back" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

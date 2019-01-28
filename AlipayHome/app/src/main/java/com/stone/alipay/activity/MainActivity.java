@@ -2,6 +2,7 @@ package com.stone.alipay.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.stone.alipay.library.AlipayContainerLayout;
 import com.stone.alipay.library.AlipayScrollView;
 import com.stone.alipay.utils.CustomizedToast;
 import com.stone.alipay.utils.Utils;
+import com.stone.alipay.widget.MaskConstraintLayout;
 import com.stone.alipay.widget.TopLinearLayout;
 
 /**
@@ -25,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private AlipayContainerLayout containerLayout;
     private AlipayScrollView scrollView;
 
-    private RelativeLayout backToolbar, frontToolbar;
+    private ConstraintLayout backToolbar;
+    private MaskConstraintLayout frontToolbar;
     private TopLinearLayout topLinearLayout;
     private View topBlueLayout;
 
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         boolean immerse = Utils.immerseStatusBar(this);
         View statusBarView = findViewById(R.id.home_status_view);
         if (immerse) {
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) statusBarView.getLayoutParams();
+            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) statusBarView.getLayoutParams();
             lp.height = Utils.getStatusBarHeight(this);
             statusBarView.setLayoutParams(lp);
         } else {
@@ -196,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 scrollView.setRefreshing(false);
             }
-        }, 1600);
+        }, 2800);
     }
 
     private void toast(String message) {

@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="alipay_progress_height">80dp</dimen>
+    <dimen name="home_toolbar_height">56dp</dimen>
     <dimen name="home_interval">6dp</dimen>
 
 </resources>

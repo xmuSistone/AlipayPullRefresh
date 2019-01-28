@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:background="@drawable/toast_back"
@@ -8,7 +9,9 @@
 
     <TextView
         android:id="@+id/toast_tv"
-        android:layout_width="fill_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:paddingBottom="2dp"
@@ -17,4 +20,4 @@
         android:textColor="#616161"
         android:textSize="14sp" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
